@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Age Calculator</title>
+    <link rel="stylesheet" href="style.css" />
+    <script>
+      function calculateAge() {
+        const birthdate = document.getElementById("birthdate").value;
+        const resultElement = document.getElementById("result");
+        if (!birthdate) {
+          resultElement.textContent = "Please select a valid date.";
+          resultElement.style.color = "#ff007f"; // Neon magenta for errors
+          resultElement.style.textShadow =
+            "0 0 6px #ff007f, 0 0 10px rgba(255, 0, 127, 0.5)";
+          return;
+        }
+        const birthDateObj = new Date(birthdate);
+        const today = new Date();
+
+        // Calculate year, month, and day differences
+        let years = today.getFullYear() - birthDateObj.getFullYear();
+        let months = today.getMonth() - birthDateObj.getMonth();
+        let days = today.getDate() - birthDateObj.getDate();
+
+        if (days < 0) {
+          months--;
+          days += new Date(today.getFullYear(), today.getMonth(), 0).getDate();
+        }
+
+        if (months < 0) {
+          years--;
+          months += 12;
+        }
+
+        resultElement.textContent = `You are ${years} years, ${months} months, and ${days} days old.`;
+        resultElement.style.color = "#00ffee"; // Neon cyan for normal text
+        resultElement.style.textShadow =
+          "0 0 6px #00ffee, 0 0 10px rgba(0, 255, 255, 0.5)";
+      }
+    </script>
+  </head>
+  <body>
+    <center>
+      <div class="container">
+        <h1>AGE CALCULATOR</h1>
+        <input type="date" id="birthdate" /><br /><br />
+        <input
+          type="button"
+          class="btn"
+          value="Calculate Age"
+          onclick="calculateAge()"
+        />
+        <p id="result"></p>
+      </div>
+    </center>
+  </body>
+</html>
